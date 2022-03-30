@@ -288,7 +288,8 @@ void pubCameraPose(const Estimator &estimator, const std_msgs::Header &header)
         cameraposevisual.publish_by(pub_camera_pose_visual, odometry.header);
         
         geometry_msgs::PoseStamped new_pose;     
-        new_pose.header.stamp =  odometry.header.stamp;
+        new_pose.header =  header;
+        new_pose.header.frame_id = "world";
         new_pose.pose =  odometry.pose.pose;
         pub_ardupilot_pose.publish(new_pose);
     }

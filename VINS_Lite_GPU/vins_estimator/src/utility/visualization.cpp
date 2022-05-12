@@ -26,8 +26,6 @@ ros::Publisher pub_keyframe_pose;
 ros::Publisher pub_keyframe_point;
 ros::Publisher pub_extrinsic;
 
-ros::Publisher pub_ardupilot_pose; 
-
 CameraPoseVisualization cameraposevisual(1, 0, 0, 1);
 static double sum_of_path = 0;
 static Vector3d last_path(0.0, 0.0, 0.0);
@@ -50,7 +48,6 @@ void registerPub(ros::NodeHandle &n)
     pub_keyframe_pose = n.advertise<nav_msgs::Odometry>("keyframe_pose", 1000);
     pub_keyframe_point = n.advertise<sensor_msgs::PointCloud>("keyframe_point", 1000);
     pub_extrinsic = n.advertise<nav_msgs::Odometry>("extrinsic", 1000);
-    pub_ardupilot_pose = n.advertise<geometry_msgs::PoseStamped>("pub_ardupilot_pose", 1000);///////
 
     cameraposevisual.setScale(0.1);
     cameraposevisual.setLineWidth(0.01);
@@ -286,12 +283,6 @@ void pubCameraPose(const Estimator &estimator, const std_msgs::Header &header)
             cameraposevisual.add_pose(P, R);
         }
         cameraposevisual.publish_by(pub_camera_pose_visual, odometry.header);
-        
-        geometry_msgs::PoseStamped new_pose;     
-        new_pose.header =  header;
-        new_pose.header.frame_id = "world";
-        new_pose.pose =  odometry.pose.pose;
-        pub_ardupilot_pose.publish(new_pose);
     }
 }
 

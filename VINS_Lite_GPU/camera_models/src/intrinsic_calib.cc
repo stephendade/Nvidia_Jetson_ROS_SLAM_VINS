@@ -206,8 +206,8 @@ main( int argc, char** argv )
             cv::Mat sketch;
             chessboard.getSketch( ).copyTo( sketch );
 
-            cv::imshow( "Image", sketch );
-            cv::waitKey( 50 );
+            //cv::imshow( "Image", sketch );
+            //cv::waitKey( 50 );
         }
         else if ( verbose )
         {
@@ -215,7 +215,7 @@ main( int argc, char** argv )
         }
         chessboardFound.at( i ) = chessboard.cornersFound( );
     }
-    cv::destroyWindow( "Image" );
+    //cv::destroyWindow( "Image" );
 
     if ( calibration.sampleCount( ) < 10 )
     {
